@@ -1,0 +1,27 @@
+@startuml
+!define C4_CONTAINER
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!$ICONURL = "https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v3.0.0/icons"
+!include $ICONURL/common.puml
+!include $ICONURL/devicons/sqllite.puml
+!include $ICONURL/devicons2/r.puml
+
+Person(user, "Utilisateur", "Personne interagissant avec le système")
+
+System_Boundary(c1, "Local") {
+    Container(package1, "PLUMES", "Package R", "Permet l'accès et l'analyse des données", $sprite="r")
+    Container(app, "Application Shiny", "Application web", "Interface pour interagir avec les données")
+}
+
+System_Boundary(boundary_ext, "Externe") {
+    ContainerDb(db, "SQLite DB", "Base de données", "Contient les données sur les contaminants et captures", $sprite="sqllite")
+    System_Ext(networkDisk, "Disque réseau Z partagé", "Contient la base de données SQLite")
+}
+
+Rel(user, app, "Interagit avec via l'interface web")
+Rel(user, package1, "Interagit avec via le package R")
+Rel(app, package1, "Utilise pour extraire et traiter les données")
+Rel(package1, db, "Accède et analyse les données")
+Rel(db, networkDisk, "Stockée sur")
+@enduml
