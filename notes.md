@@ -1,0 +1,36 @@
+## Plan de formation
+
+- Rapide vue d'ensemble de la base de données (30 minutes)
+  - Structure de la base de données
+    - Slide 1: Grandes familles de données 
+      - F1: Données de mesures de contaminant
+      - F2: Données de captures et traits morphométriques
+    - Slide 2: Qui fournit l'information?
+      - Intervenant 1: Biologiste 
+      - Intervenant 2: Chimiste
+    - Slide 3: Schéma de la base de données avec table colorié par famille (reprendre le SVG)
+  - Technologies impliquées dans la solution
+    - Slide 4: Schéma = BD + Package + application
+    - Slide 5: Qui est ou?, Comment installer et lancer l'application?
+    - Slide 6: Limites SQLite (Typage + écriture concurrente)
+    - Slide 7: Limites Disque réseau
+    - Slide (Optionnelle): Dépot Github + tests unitaires + CD
+  - Données actuels
+    - Slide 8: Table de référence sur les contaminants
+    - Slide 8: Contaminants - Nombre de mesures par année par grande famille
+    - Slide 9: Captures - Nombre de captures
+    - Slide 10: Notes sur la bague, comment le tracking est consignés dans la base de données
+    - Slide 11: Problèmes rencontrées (Qualité des données) et qui nécessiterait d'être addressé
+  - Rapports importés vs non-importés
+    - Slide 12: État des lieux, quelles sont les rapports non-importés vs importés?
+- Importer des données (1.5 heure)
+    - Slide 13: Respecter l'inrtégrité référentielle entre les tables
+    - Slide 14: Comment savoir si un contaminant ou une espèce existe déjà dans la base de données? 
+    - Slide 15: Présentation d'une procédure d'importation avec le package plumes = Passer en revue le document (20 minutes)
+    - Exercice: On importe une feuille de données ensemble
+- Interroger les données (1 heure)
+    - Dans R avec le package PLUMES
+      - Slide 16: Extraire l'ensemble des données pour un site spécifique?
+      - Slide 17: Extraire l'ensemble des données pour un contaminants?
+      - Slide 18: Extraire l'ensemble des données pour une espèce en particulier?
+    - Via l'application shiny
