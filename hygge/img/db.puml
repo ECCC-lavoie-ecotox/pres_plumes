@@ -1,0 +1,165 @@
+@startuml
+left to right direction
+
+skinparam package {
+    BackgroundColor<<Lab>> SandyBrown
+    BackgroundColor<<Ref>> Moccasin
+    BackgroundColor<<Field>> LightBlue
+}
+
+package "Laboratory domain" <<Lab>> {
+    entity lab_sample {
+      * id_lab_sample : TEXT
+      --
+      note_lab_sample : TEXT
+    }
+
+    entity report {
+      * id_report : TEXT
+      * id_project : TEXT
+      --
+      report_date : TEXT
+      report_access_path : TEXT
+    }
+
+    entity lab_measurement {
+      * id_lab_sample : TEXT
+      * id_analyte : TEXT
+      --
+      value : FLOAT
+      is_censored : BOOLEAN
+      percent_lipid : FLOAT
+      percent_moisture : FLOAT
+      note_lab_measurement : TEXT
+      id_report : TEXT
+    }
+
+    entity lab_field_sample {
+      * id_lab_sample : TEXT
+      * id_field_sample : TEXT
+      --
+      note_lab_field_sample : TEXT
+    }
+}
+
+package "References domain" <<Ref>> {
+    entity project {
+      * id_project : TEXT
+      --
+      title : TEXT
+      organization : TEXT
+      investigator : TEXT
+      data_manager : TEXT
+      email_investigator : TEXT
+      email_data_manager : TEXT
+      description : TEXT
+    }
+
+    entity sites {
+      * id_site : TEXT
+      --
+      name_en : TEXT
+      province : TEXT
+      lat : FLOAT
+      lon : FLOAT
+      srid : INTEGER
+    }
+
+    entity species {
+      * id_species : TEXT
+      --
+      organism : TEXT
+      genus : TEXT
+      species : TEXT
+      vernacular_fr : TEXT
+      vernacular_en : TEXT
+    }
+
+    entity analyte {
+      * id_analyte : TEXT
+      --
+      name : TEXT
+      other_name : TEXT
+      short_name : TEXT
+      unit : TEXT
+      family : TEXT
+      casid : TEXT
+      pubcid : INTEGER
+      note_analyte : TEXT
+      is_dry_weight : BOOLEAN
+      on_isolated_lipid : BOOLEAN
+    }
+}
+
+package "Field domain" <<Field>> {
+    entity individual {
+      * id_individual : TEXT
+      --
+      active_band : TEXT
+      sex : TEXT
+    }
+
+    entity capture {
+      * id_capture : TEXT
+      * id_individual : TEXT
+      --
+      date : TEXT
+      time_capture : TEXT
+      section : TEXT
+      nest_id : TEXT
+      nest_content : TEXT
+      age : TEXT
+      estimation_sex : TEXT
+      previous_band : TEXT
+      plastic_band : TEXT
+      previous_plastic_band : TEXT
+      blood_volume_ml : FLOAT
+      egg_collect : BOOLEAN
+      feather_p8 : TEXT
+      avian_flue : BOOLEAN
+      mass : FLOAT
+      mass_g : TEXT
+      head_length_mm : FLOAT
+      culmen_length_mm : FLOAT
+      beak_thickness : TEXT
+      p9_length_mm : FLOAT
+      tarsus_length_mm : FLOAT
+      half_span_mm : FLOAT
+      tracker_removal : TEXT
+      id_tracker_removal : TEXT
+      tracker_deployment : TEXT
+      id_tracker_deployment : TEXT
+      activation_time : TEXT
+      time_euthanasia : TEXT
+      mortality : BOOLEAN
+      note_capture : TEXT
+    }
+
+    entity field_sample {
+      * id_field_sample : TEXT
+      * id_site : TEXT
+      * id_species : TEXT
+      --
+      id_capture : TEXT
+      collection_date : TEXT
+      age : TEXT
+      tissue : TEXT
+    }
+}
+
+' Relationships
+lab_sample ||--|{ lab_measurement : "1 to many"
+analyte ||--|{ lab_measurement : "1 to many"
+report ||--|{ lab_measurement : "1 to many"
+
+individual ||--|{ capture : "1 to many"
+capture ||--|{ field_sample : "1 to many"
+sites ||--|{ field_sample : "1 to many"
+species ||--|{ field_sample : "1 to many"
+
+field_sample ||--|{ lab_field_sample : "1 to many"
+lab_sample ||--|{ lab_field_sample : "1 to many"
+
+project ||--|{ report : "1 to many"
+
+@enduml
