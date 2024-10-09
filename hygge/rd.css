@@ -124,17 +124,16 @@ a:hover, a:active {
   }
 
   .title-slide {
-    background-image: url('img/raster_ex.png');
     background-color: #0a3152;
     background-size: contain;
     border: 0px;
-    background-position: 580px 0;
-    line-height: 1;
+    line-height: 1.5;
     }
 
   .instructors {
-    font-size: 15px;
-    color: #e7e8e2; 
+    font-size: 20px;
+    font-weight:300;
+    color: #0a3152; 
     }
   
   .remark-slide table {
@@ -142,14 +141,14 @@ a:hover, a:active {
   }
 
   .title-slide h1 {
-    color: #e7e8e2; 
+    color: #0a3152; 
     font-size: 40px;
     margin-top: 0px;
     margin-right: 300px;
     }
   
   .title-slide h2, .title-slide h3 {
-    color: #e7e8e2; 
+    color: #0a3152; 
     }
   
   .remark-inline-code {
