@@ -1,11 +1,11 @@
-# :loudspeaker: Talk templates
+# :loudspeaker: PLUMES Talk
 
-## Before starting with `hygge` template
+### Install deps
 
 Install the following packages:
 
 ```R
-install.packages('countdown')
+install.packages(c('countdown','rmarkdown','xaringan'))
 devtools::install_github("ropenscilabs/icon")
 ```
 
@@ -18,19 +18,6 @@ icons::download_fontawesome()
 
 Be aware that the package is named `icon` on github but uses the namespace `icons`.
 
-## Xaringan templates 
-
-### About
-
-The [xaringan](https://github.com/yihui/xaringan) R package eases the creation
-of slideshows with [remarkjs](https://remarkjs.com/#1) through R Markdown.
-There are several themes available (see https://github.com/yihui/xaringan/wiki/Themes). To render a presentation, use `rmarkdown::render("index.Rmd")`.
-
-### Themes 
-
-- `tamu_like` inSileco theme inspired by the [TAMU template](https://github.com/nanhung/xaringan-tamu). 
-- `hygge`: use the `hygge` theme.
-
 
 ### How to get a pdf version
 
@@ -40,3 +27,14 @@ Use [`pagedown`](https://github.com/rstudio/pagedown) as suggested in https://gi
 install.packages('pagedown')
 pagedown::chrome_print('index.html')
 ```
+
+## Convert PlantUML to PNG
+
+```bash
+mkdir bin
+wget -P bin/ https://github.com/plantuml/plantuml/releases/download/v1.2024.7/plantuml-1.2024.7.jar
+java -jar bin/plantuml.jar hygge/img/db.puml
+java -jar bin/plantuml.jar hygge/img/system.puml
+```
+
+
