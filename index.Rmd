@@ -351,3 +351,18 @@ Une fois les données de référence et de terrain injectées :
    - **report** : À injecter après les projets.
    - **lab_field_sample** : Fait le lien entre `field_sample` et `lab_sample`.
    - **lab_measurement** : Insérée en dernier, dépend de `lab_sample`, `analyte` et `report`.
+
+---
+# Exemple d'importation
+
+https://eccc-lavoie-ecotox.github.io/plumesbox/articles/import-MET-THg-23-19.html
+
+---
+
+class: inverse, center, middle
+
+# Pratique
+
+![:custom_hr]()
+
+## Reprendre la recette d'importation et l'appliquer à un autre rapport de laboratoire 
