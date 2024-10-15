@@ -250,7 +250,9 @@ class: inverse, center, middle
 
 ```{R}
 sites <- plumesbox::get_tbl(con, tbl = "sites")   
+```
 
+```{R, echo = FALSE}
 rmarkdown::paged_table(sites, options = list(rows.print = 5))
 ```
 
@@ -267,9 +269,22 @@ sites |>
 ```
 
 ---
-# Obtenir les mesures de contaminants pour un site
+# Obtenir les mesures de contaminants
 
-Afin de simplifier les étapes de jointures entre les tables, il existe une fonction générique dans le package qui permet de récupérer l'ensemble des entrées dans la base de données. On peut par la suite filtrer pour obtenir seulement les mesures désirées.
+Afin de simplifier les étapes de jointures entre les tables, il existe une fonction générique dans le package qui permet de récupérer l'ensemble des entrées dans la base de données. 
+
+```{R}
+db_plumes <- get_db(con) |> head(100) |> as.data.frame()
+```
+
+```{R, echo = FALSE}
+rmarkdown::paged_table(db_plumes, options = list(rows.print = 5))
+```
+
+---
+# Obtenir les mesures de contaminants
+
+On peut par la suite filtrer pour obtenir seulement les mesures désirées.
 
 ```{R}
 db_plumes <- get_db(con)
@@ -277,6 +292,10 @@ db_plumes <- get_db(con)
 bonaventure <- db_plumes |>
   dplyr::filter(id_site == "Bonaventure") |>
   as.data.frame()
+```
+
+```{R, echo = FALSE}
+rmarkdown::paged_table(bonaventure, options = list(rows.print = 5))
 ```
 
 ---
@@ -302,7 +321,7 @@ class: inverse, center, middle
 ---
 # Ordre d'injection
 
-## Tables de référencesn
+## Tables de références
 
 Les tables de référence sont à insérer en premier car elles fournissent des informations pour les autres tables:
    - **sites** : Remplir en premier pour les informations sur les sites.
