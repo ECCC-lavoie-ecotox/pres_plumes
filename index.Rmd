@@ -75,7 +75,7 @@ class: inverse, center, middle
 knitr::include_graphics("img/db-simplify.png")
 ```
 
-Diagramme complet accessible [en ligne](https://github.com/ECCC-lavoie-ecotox/pres_plumes/blob/main/hygge/img/db.png)
+Diagramme complet accessible [en ligne](https://github.com/ECCC-lavoie-ecotox/pres_plumes/blob/main/img/db.png)
 
 ---
 
@@ -114,7 +114,7 @@ On peut interagir avec la base de données de deux manières
 2. **Application Shiny:** Par une interface utilisateur (UI, application shiny)
    - Permet de rechercher et d'extraire les données selon des filtres contextuels
 
-**Ces deux outils se retrouvent dans le package plumesbox.**
+**Ces deux outils se retrouvent dans le package `plumesbox`.**
 
 Le code source est disponible sur [Github](https://github.com/ECCC-lavoie-ecotox/plumesbox/tree/master).
 
@@ -158,7 +158,6 @@ class: inverse, center, middle
 
 ## Le package R - plumesbox
 
-
 ---
 # Installation de `plumesbox`
 
@@ -169,99 +168,168 @@ devtools::install_github("ECCC-lavoie-ecotox/plumesbox")
 Documentation du package disponible à cette adresse: https://eccc-lavoie-ecotox.github.io/toxbox/
 
 ---
-# Format more
 
-.pull-left[
-
-#### Classes
-
-normal size ( $\LaTeX$-friendly terms)
-
-`.huge[huge]` &nbsp; .huge[huge]
-
-`.Large[Large]` &nbsp; .Large[Large]
-
-`.large[large]` &nbsp; .large[large]
-
-`.small[small]` &nbsp; .small[small]
-
-`.tiny[tiny]` &nbsp; .tiny[tiny]
-
-`.sotiny[sotiny]` &nbsp; .sotiny[sotiny]
-
-`.font120[font 120%]` &nbsp; .font120[font 120%]
-
-]
-
-
-.pull-right[
-
-#### Special class
-
-- `.alert[alert]` .alert[alert]
-
-- `.comment[comment]` .comment[comment]
-
-#### Use remarkjs's macros
-
-- `![:scale 40%](path/to/img.png)` to scale an image
-
-- `![:addlogo 8%]()` &nbsp; ![:addlogo 8%]()
-
-]
-
-???
-Macros are easy to create
-
-
----
 class: inverse, center, middle
 
-# Use R!
+# Pratique
 
-## Few examples
+![:custom_hr]()
+
+## Installer le package plumesbox
+
 
 ---
-# One call
+# Instancier une connexion vers la BD
 
-```{r}
-rnorm(88)
+```{R, echo = FALSE}
+con <- plumesbox::init_con(local = "contaminants-rlavoie-eccc.sqlite")
+```
+On ouvre la connexion vers la base de données
+
+```{R, eval = FALSE}
+con <- plumesbox::init_con()
+```
+
+On peut valider que la connexion est fonctionnelle
+
+```{R}
+DBI::dbListTables(con)
 ```
 
 ---
-# Highlight your code
 
+class: inverse, center, middle
 
-```{r results = "hold"}
-val <- 2
-{{ val*val }}
-val2 <- 5
-{{ val2 }}
+# Pratique
+
+![:custom_hr]()
+
+## Valider que la connexion est fonctionnelle de votre côté
+
+---
+# Tables de références
+
+.pull-left[
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("img/references.png")
+```
+]
+
+.pull-right[
+  Il existe 4 tables de références dans la base de données:
+
+  1. Sites
+  2. Espèces 
+  3. Contaminants
+  4. Projects
+]
+
+---
+# Obtenir une table de référence
+
+On réutilise toujours l'objet de connexion que l'on passe à la fonction `plumesbox::get_tbl()` et on spécifie l'argument `tbl` pour obtenir la table désirée.
+```{R}
+species <- plumesbox::get_tbl(con, tbl = "species")
+```
+
+```{R, echo = FALSE}
+rmarkdown::paged_table(species, options = list(rows.print = 5))
 ```
 
 ---
 
-# Widget example
+class: inverse, center, middle
 
-```{r, message = FALSE, fig.width = 9, fig.height = 5.4}
-library(mapview)
-mapview(breweries)
+# Pratique
+
+![:custom_hr]()
+
+## Charger dans R les tables de référence analyte et sites
+
+---
+# Obtenir la table de référence sites
+
+```{R}
+sites <- plumesbox::get_tbl(con, tbl = "sites")   
+
+rmarkdown::paged_table(sites, options = list(rows.print = 5))
 ```
 
 ---
-# Custom plot 
+# Cartographie des sites
 
-```{r, echo = F, fig.align = "center"}
-seqx <- seq(0,10, length = 100)
-par(mypar)
-par(bty = "l")
-plot(seqx, cos(seqx), type = "l", lwd = 4)
-abline(v = 6, h = 0, col = "#3fb3b2", lty = 2)
+```{R, out.width = "100%"}
+sites <- plumesbox::get_tbl(con, tbl = "sites")   
+
+sites |>
+  dplyr::filter(!is.na(lat) | !is.na(lon)) |>
+  sf::st_as_sf(coords = c("lon", "lat"), crs = 4326) |>
+  mapview::mapview()
 ```
 
+---
+# Obtenir les mesures de contaminants pour un site
 
-# Resources
+Afin de simplifier les étapes de jointures entre les tables, il existe une fonction générique dans le package qui permet de récupérer l'ensemble des entrées dans la base de données. On peut par la suite filtrer pour obtenir seulement les mesures désirées.
 
-- Github repository: https://github.com/rstudio/bookdown
-- Bookdown book: https://bookdown.org/yihui/bookdown/
+```{R}
+db_plumes <- get_db(con)
 
+bonaventure <- db_plumes |>
+  dplyr::filter(id_site == "Bonaventure") |>
+  as.data.frame()
+```
+
+---
+
+class: inverse, center, middle
+
+# Pratique
+
+![:custom_hr]()
+
+## Obtenir les mesures pour un contaminant en particulier
+
+---
+
+class: inverse, center, middle
+
+# Partie 3
+
+![:custom_hr]()
+
+## Importer des données
+
+---
+# Ordre d'injection
+
+## Tables de référencesn
+
+Les tables de référence sont à insérer en premier car elles fournissent des informations pour les autres tables:
+   - **sites** : Remplir en premier pour les informations sur les sites.
+   - **species** : À insérer avant les échantillons de terrain (`field_sample`).
+   - **analyte** : Nécessaire pour les mesures de laboratoire (`lab_measurement`).
+   - **project** : Utilisée dans les rapports (`report`).
+
+---
+# Ordre d'injection
+
+## Terrain
+
+Ensuite, les données de terrain :
+ - **individual** : Remplir avant les captures.
+ - **capture** : Nécessaire pour les échantillons de terrain.
+ - **field_sample** : Reliée à sites, species et capture, donc ces tables doivent être déjà remplies.
+
+Note: Pour la plupart des cas, seulement les informations sur le field sample sont à renseigner.
+
+---
+# Ordre d'injection
+
+## Laboratoire
+
+Une fois les données de référence et de terrain injectées :
+   - **lab_sample** : À insérer avant les mesures.
+   - **report** : À injecter après les projets.
+   - **lab_field_sample** : Fait le lien entre `field_sample` et `lab_sample`.
+   - **lab_measurement** : Insérée en dernier, dépend de `lab_sample`, `analyte` et `report`.

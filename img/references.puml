@@ -1,0 +1,58 @@
+@startuml
+
+left to right direction
+
+skinparam package {
+    BackgroundColor<<Ref>> Moccasin
+}
+
+package "Tables de références" <<Ref>> {
+    entity project {
+      * id_project : TEXT
+      --
+      title : TEXT
+      organization : TEXT
+      investigator : TEXT
+      data_manager : TEXT
+      email_investigator : TEXT
+      email_data_manager : TEXT
+      description : TEXT
+    }
+
+    entity sites {
+      * id_site : TEXT
+      --
+      name_en : TEXT
+      province : TEXT
+      lat : FLOAT
+      lon : FLOAT
+      srid : INTEGER
+    }
+
+    entity species {
+      * id_species : TEXT
+      --
+      organism : TEXT
+      genus : TEXT
+      species : TEXT
+      vernacular_fr : TEXT
+      vernacular_en : TEXT
+    }
+
+    entity analyte {
+      * id_analyte : TEXT
+      --
+      name : TEXT
+      other_name : TEXT
+      short_name : TEXT
+      unit : TEXT
+      family : TEXT
+      casid : TEXT
+      pubcid : INTEGER
+      note_analyte : TEXT
+      is_dry_weight : BOOLEAN
+      on_isolated_lipid : BOOLEAN
+    }
+}
+
+@enduml

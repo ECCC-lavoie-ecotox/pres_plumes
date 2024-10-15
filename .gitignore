@@ -46,3 +46,6 @@ vignettes/*.pdf
 
 # Avoid push of java bin
 *.jar
+
+# Avoid push of local database
+contaminants-rlavoie-eccc.sqlite
