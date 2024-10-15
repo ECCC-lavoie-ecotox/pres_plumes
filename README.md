@@ -33,8 +33,7 @@ pagedown::chrome_print('index.html')
 ```bash
 mkdir bin
 wget -P bin/ https://github.com/plantuml/plantuml/releases/download/v1.2024.7/plantuml-1.2024.7.jar
-java -jar bin/plantuml.jar hygge/img/db.puml
-java -jar bin/plantuml.jar hygge/img/system.puml
+java -jar bin/plantuml.jar img/*.puml
 ```
 
 
