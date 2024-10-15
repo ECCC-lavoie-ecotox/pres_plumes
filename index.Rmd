@@ -69,7 +69,7 @@ class: inverse, center, middle
 
 # Structure de la base de données
 
-Comment cette information est structuré dans la base de données?
+## Comment cette information est structuré dans la BD?
 
 ```{r, echo=FALSE, out.width="70%"}
 knitr::include_graphics("img/db-simplify.png")
@@ -81,7 +81,9 @@ Diagramme complet accessible [en ligne](https://github.com/ECCC-lavoie-ecotox/pr
 
 # Outils à notre disposition
 
-```{r, echo=FALSE, out.width="50%"}
+## Comment la solution est architecturé?
+
+```{r, echo=FALSE, out.width="45%"}
 knitr::include_graphics("img/system1.png")
 ```
 
@@ -89,7 +91,7 @@ knitr::include_graphics("img/system1.png")
 
 # Base de données
 
-**Où est la base de données?**
+## Où est la base de données?
 
 - Sur le disque réseau `Z:` dans le dossier  `07-Données BD/Database/`
 - La base de données est intitulé `contaminants-rlavoie-eccc.sqlite`
@@ -112,7 +114,8 @@ On peut interagir avec la base de données de deux manières
 2. **Application Shiny:** Par une interface utilisateur (UI, application shiny)
    - Permet de rechercher et d'extraire les données selon des filtres contextuels
 
-Ces deux outils se retrouvent dans le package plumesbox
+**Ces deux outils se retrouvent dans le package plumesbox.**
+
 Le code source est disponible sur [Github](https://github.com/ECCC-lavoie-ecotox/plumesbox/tree/master).
 
 ---
@@ -128,7 +131,7 @@ Le code source est disponible sur [Github](https://github.com/ECCC-lavoie-ecotox
 ---
 # Limites technologiques 
 
-Pour simplifier, qu'est ce que ces limites impliques dans votre quotidien?
+## Qu'est ce que ces limites impliques dans votre quotidien?
 
 **SQLite:** La base de donnée étant contenu dans un fichier, il est impossible d'écrire en même temps sur la base de données (ex. Importer des données). Il est cependant possible d'interroger la base de données simultanément.
 
@@ -163,7 +166,7 @@ class: inverse, center, middle
 install.packages("devtools")
 devtools::install_github("ECCC-lavoie-ecotox/plumesbox")
 ```
-Documentation disponible à cette adresse: https://eccc-lavoie-ecotox.github.io/toxbox/
+Documentation du package disponible à cette adresse: https://eccc-lavoie-ecotox.github.io/toxbox/
 
 ---
 # Format more
