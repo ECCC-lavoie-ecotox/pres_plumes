@@ -1,0 +1,97 @@
+@startuml
+
+left to right direction
+
+skinparam package {
+    BackgroundColor<<Lab>> SandyBrown
+    BackgroundColor<<Ref>> Moccasin
+    BackgroundColor<<Field>> LightBlue
+}
+
+package "Laboratoire" <<Lab>> {
+    entity lab_sample {
+      * id_lab_sample : TEXT
+    }
+
+    entity report {
+      * id_report : TEXT
+      * id_project : TEXT
+      --
+      report_date : TEXT
+    }
+
+    entity lab_measurement {
+      * id_lab_sample : TEXT
+      * id_analyte : TEXT
+      --
+      value : FLOAT
+    }
+
+    entity lab_field_sample {
+      * id_lab_sample : TEXT
+      * id_field_sample : TEXT
+    }
+}
+
+package "Table de références" <<Ref>> {
+    entity project {
+      * id_project : TEXT
+      --
+      title : TEXT
+    }
+
+    entity sites {
+      * id_site : TEXT
+      --
+      name_en : TEXT
+      province : TEXT
+    }
+
+    entity species {
+      * id_species : TEXT
+      --
+      organism : TEXT
+    }
+
+    entity analyte {
+      * id_analyte : TEXT
+      --
+      name : TEXT
+    }
+}
+
+package "Terrain" <<Field>> {
+    entity individual {
+      * id_individual : TEXT
+    }
+
+    entity capture {
+      * id_capture : TEXT
+      * id_individual : TEXT
+      --
+      date : TEXT
+    }
+
+    entity field_sample {
+      * id_field_sample : TEXT
+      * id_site : TEXT
+      * id_species : TEXT
+    }
+}
+
+' Relationships
+lab_sample ||--|{ lab_measurement : "1 to many"
+analyte ||--|{ lab_measurement : "1 to many"
+report ||--|{ lab_measurement : "1 to many"
+
+individual ||--|{ capture : "1 to many"
+capture ||--|{ field_sample : "1 to many"
+sites ||--|{ field_sample : "1 to many"
+species ||--|{ field_sample : "1 to many"
+
+field_sample ||--|{ lab_field_sample : "1 to many"
+lab_sample ||--|{ lab_field_sample : "1 to many"
+
+project ||--|{ report : "1 to many"
+
+@enduml

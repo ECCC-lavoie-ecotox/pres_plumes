@@ -1,6 +1,6 @@
 ---
 title: "Presentation"
-author: "inSileco Team"
+author: "Steve Vissault"
 date: "2020/12/15"
 output:
   xaringan::moon_reader:
@@ -25,6 +25,7 @@ background-image: url(img/gannet.jpg)
 .instructors[
   Steve Vissault </br>
   `r format(Sys.time(), '%B %d, %Y')`
+  
 ]
 
 <div style="font-size:15px;text-align:right;">Crédit photo: Antanasc</div>
@@ -58,9 +59,9 @@ class: inverse, center, middle
 
 # Structure de la base de données
 
-## 3 grandes familles de données:
+## 3 grandes familles de données
 
-1. Évenements de capture d'individus (Biologiste)
+1. Évenements de capture d'individus & Mesures morphométriques sur les individus (Biologiste)
 2. Collecte des échantillons (Biologiste)
 3. Mesures de contaminants (Chimiste)
 
@@ -70,50 +71,99 @@ class: inverse, center, middle
 
 Comment cette information est structuré dans la base de données?
 
-![](https://eccc-lavoie-ecotox.github.io/integration-dbs-docs/img/entityRelationshipsDiagram.png)
+```{r, echo=FALSE, out.width="70%"}
+knitr::include_graphics("img/db-simplify.png")
+```
+
+Diagramme complet accessible [en ligne](https://github.com/ECCC-lavoie-ecotox/pres_plumes/blob/main/hygge/img/db.png)
 
 ---
 
 # Outils à notre disposition
 
-On peut interagir avec la base de données:
-
-1. De manière programmatique (Librairie R, Écriture + Lecture)
-2. Par une interface utilisateur (UI, application shiny)
-
----
-
-# Outils à notre disposition
-
-TODO: Schéma d'interaction entre les outils
----
-
-# Documentation à notre disposition
-
-```{r, echo=FALSE}
-countdown::countdown(minutes = 3, seconds = 0)
+```{r, echo=FALSE, out.width="50%"}
+knitr::include_graphics("img/system1.png")
 ```
 
 ---
 
-class: middle, center, clear
+# Base de données
 
+**Où est la base de données?**
 
-.font180[EMPTY]
+- Sur le disque réseau `Z:` dans le dossier  `07-Données BD/Database/`
+- La base de données est intitulé `contaminants-rlavoie-eccc.sqlite`
+
+Il faut donc être connecté au `Z:` pour pouvoir accéder aux données
+
+**Versionnage**
+
+Dans le dossier, on retrouve des sauvegardes dans le temps. 
+Exemple: `contaminants-rlavoie-eccc-14102024.bak.sqlite`
+
 ---
 
-# Headers (level 1)
+# Outils à notre disposition
 
-## Header 2
+On peut interagir avec la base de données de deux manières
 
-### Header 3
+1. **Package R:** De manière programmatique (Librairie R)
+   - Permet l'écriture et la lecture des données dans la base de données
+2. **Application Shiny:** Par une interface utilisateur (UI, application shiny)
+   - Permet de rechercher et d'extraire les données selon des filtres contextuels
 
-#### Header 4
+Ces deux outils se retrouvent dans le package plumesbox
+Le code source est disponible sur [Github](https://github.com/ECCC-lavoie-ecotox/plumesbox/tree/master).
 
-##### Header 5
+---
+# Limites technologiques 
 
-###### Header 6
+| **Avantages**               | **Inconvénients**            |
+|-----------------------------|------------------------------|
+| Simple à utiliser            | Pas adapté aux très gros volumes de données |
+| Flexible pour analyser les données | Performances limitées sur de grands projets  |
+| Facile à transporter (SQLite) | Moins sécurisé sur un disque partagé  |
+| Coût faible                  | Problèmes possibles avec plusieurs utilisateurs en même temps |
 
+---
+# Limites technologiques 
+
+Pour simplifier, qu'est ce que ces limites impliques dans votre quotidien?
+
+**SQLite:** La base de donnée étant contenu dans un fichier, il est impossible d'écrire en même temps sur la base de données (ex. Importer des données). Il est cependant possible d'interroger la base de données simultanément.
+
+--
+
+**Disque réseau Z:** La base de données est plus lente à interroger dû à la latence: On passe par le réseau central à Ottawa (via le VPN ou même au bureau).
+
+
+---
+
+# Outils à notre disposition
+
+```{r, echo=FALSE, out.width="50%"}
+knitr::include_graphics("img/system2.png")
+```
+
+---
+
+class: inverse, center, middle
+
+# Partie 2
+
+![:custom_hr]()
+
+## Le package R - plumesbox
+
+
+---
+# Installation de `plumesbox`
+
+```{R, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("ECCC-lavoie-ecotox/plumesbox")
+```
+Documentation disponible à cette adresse: https://eccc-lavoie-ecotox.github.io/toxbox/
 
 ---
 # Format more
