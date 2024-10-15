@@ -274,7 +274,7 @@ sites |>
 Afin de simplifier les étapes de jointures entre les tables, il existe une fonction générique dans le package qui permet de récupérer l'ensemble des entrées dans la base de données. 
 
 ```{R}
-db_plumes <- get_db(con) |> head(100) |> as.data.frame()
+db_plumes <- plumesbox::get_db(con) |> head(100) |> as.data.frame()
 ```
 
 ```{R, echo = FALSE}
@@ -287,7 +287,7 @@ rmarkdown::paged_table(db_plumes, options = list(rows.print = 5))
 On peut par la suite filtrer pour obtenir seulement les mesures désirées.
 
 ```{R}
-db_plumes <- get_db(con)
+db_plumes <- plumesbox::get_db(con)
 
 bonaventure <- db_plumes |>
   dplyr::filter(id_site == "Bonaventure") |>
