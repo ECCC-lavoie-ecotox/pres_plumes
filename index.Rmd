@@ -1,7 +1,6 @@
 ---
 title: "Presentation"
 author: "Steve Vissault"
-date: "2020/12/15"
 output:
   xaringan::moon_reader:
     css: [default, rd.css, rd-font.css, "hygge"]
