@@ -337,7 +337,7 @@ Les tables de référence sont à insérer en premier car elles fournissent des 
 Ensuite, les données de terrain :
  - **individual** : Remplir avant les captures.
  - **capture** : Nécessaire pour les échantillons de terrain.
- - **field_sample** : Reliée à sites, species et capture, donc ces tables doivent être déjà remplies.
+ - **field_sample** : Relier à sites, species et capture, donc ces tables doivent être déjà remplies.
 
 Note: Pour la plupart des cas, seulement les informations sur le field sample sont à renseigner.
 
